@@ -7,3 +7,6 @@ function getPopupWin(){
 	}
 	return false;
 }
+function logIt(arg){
+	console.log(arg);
+}

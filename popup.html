@@ -1,29 +1,34 @@
 <!doctype html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="lib/exkeleton-popup.css">
 		<link rel="stylesheet" type="text/css" href="popup.css">
 	</head>
 	<body>
 		<h1 class="title full">Exkeleton</h1>
-		<p id="msgArea" class="full fadeOut">Body text. </p>
+		<p id="msgArea" class="full fadeOut">Default message text. </p>
+
+		<!-- uncomment this <nav> and the second <div class="page"> below to enable multiple page navigation
 		<nav class="full" id="mainNav">
 			<a href="#">Page 1</a> |
 			<a href="#">Page 2</a> 
-		</nav>
+		</nav> -->
 
-		</div>
 
 		<div id="page-container">
 			<div class="page">
 				<h2 class="title full">Page 1</h2>
 
 			</div>
+
+			<!-- uncomment this <div class="page"> and the <nav> above to enable multiple page navigation
 			<div class="page">
 				<h2 class="title full">Page 2</h2>
 
-			</div>
+			</div> -->
 		</div>
 		
+		<script src="lib/exkeleton-popup.js"></script>		
 		<script src="popup.js"></script>
 	</body>
 </html>
