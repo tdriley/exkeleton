@@ -7,6 +7,6 @@ function onPopupOpen(){
 };
 function onPopupClose(){
 	//when the popup closes
-	bgpage.logIt('Exkeleton popup closed');
+	bgpage.Exk.logIt('Exkeleton popup closed');
 
 };

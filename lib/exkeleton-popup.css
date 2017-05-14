@@ -16,13 +16,14 @@ body {
 
 /* effects */
 .fadeIn {
-	transition: opacity 0.5s!important;
-	opacity:1;
-}
-.fadeOut {
-	transition: opacity 0.5s!important;
-	opacity:0;
-}
+    transition: opacity 0.3s;
+    opacity: 1;
+  }
+  
+ .fadeOut {
+    transition: opacity 0.3s;
+    opacity: 0;
+ }
 
 /* structure */
 #page-container {
@@ -30,12 +31,12 @@ body {
 	float: left;
 }
 .page {
-	float:left;
+	float: left;
 }
 .full {
 	width: 95%;
 	margin: 0 2.5% 2.5% 2.5%;
-	float:left;
+	float: left;
 }
 .half {
 	width: 46.25%;
@@ -45,7 +46,7 @@ body {
 .third {
 	width: 30.83%;
 	margin: 0 0 2.5% 2.5%;
-	float:left;
+	float: left;
 }
 .last {
 	margin-bottom: 0;
@@ -61,5 +62,5 @@ body {
 	/*background: linear-gradient(to bottom, #e6ffff, rgba(255,0,0,0));*/
 	position: absolute;
 	margin: -1em 0 0 0;
-	padding:1em;
+	padding: 1em;
 }
