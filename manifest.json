@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Exkeleton",
-  "description": "Exkeleton",
+  "name": "ProxyPOC",
+  "description": "ProxyPOC",
   "version": "0.0.1",
 
   "icons": {
@@ -13,7 +13,7 @@
 
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "Exkeleton"
+    "default_title": "ProxyPOC"
   },
 
   "background" : {
@@ -23,8 +23,11 @@
   "permissions": [
     "activeTab",
     "tabs",
+    "*://*/*",
+    "storage",
+    "proxy",
     "webRequest",
     "*://*/*",
-    "storage"
+    "webRequestBlocking"
   ]
 }

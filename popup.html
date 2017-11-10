@@ -3,29 +3,79 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="lib/exkeleton-popup.css">
 		<link rel="stylesheet" type="text/css" href="popup.css">
+		<style>
+			form {
+				border-bottom:thin solid #eee;
+			}
+			input[type="text"], input[type="password"] {
+				width: 50%;
+				float: right;
+				padding: 0.25em;
+			}
+			.conbtns {
+				list-style: none;
+				padding-left: 0.25em;
+			}
+			.conbtns li {
+				margin-bottom: 0.75em;
+			}
+			.info {
+				margin:0 1.5em 1.5em 1.5em;
+			}
+			.selected {
+				list-style: disc;
+			}
+			.active {
+				color: green;
+			}
+			.errored {
+				color: red;
+			}
+		</style>
 	</head>
 	<body>
-		<h1 class="title full">Exkeleton</h1>
-		<p id="msgArea" class="full fadeOut">Default message text. </p>
-
-		<!-- uncomment this <nav> and the second <div class="page"> below to enable multiple page navigation
-		<nav class="full" id="mainNav">
-			<a href="#">Page 1</a> |
-			<a href="#">Page 2</a> 
-		</nav> -->
+		<h1 class="title full">Proxy POC</h1>
+		<!-- <p id="msgArea" class="full fadeOut">Default message text. </p> -->
 
 
 		<div id="page-container">
 			<div class="page">
-				<h2 class="title full">Page 1</h2>
+				<form class="full">
+					<label for="proxya_host" class="full">Proxy (A) IP Address
+						<input type="text" id="proxya_host" value="" />
+					</label>
+					<label for="proxya_port" class="full">Proxy (A) Port
+						<input type="text" id="proxya_port" value="" />
+					</label>
+					<label for="user_a" class="full">Proxy (A) Username (if challenged)
+						<input type="text" id="user_a" value="" />
+					</label>
+					<label for="pass_a" class="full">Proxy (A) Password (if challenged)
+						<input type="text" id="pass_a" value="" />
+					</label>
 
+					<label for="proxyb_host" class="full">Proxy (B) IP Address
+						<input type="text" id="proxyb_host" value=""/>
+					</label>
+					<label for="proxyb_port" class="full">Proxy (B) Port
+						<input type="text" id="proxyb_port" value=""/>
+					</label>
+					<label for="user_b" class="full">Proxy (B) Username (if challenged)
+						<input type="text" id="user_b" value="" />
+					</label>
+					<label for="pass_b" class="full">Proxy (B) Password (if challenged)
+						<input type="text" id="pass_b" value="" />
+					</label>
+				</form>
+
+				<p class="info">Click the appropriate link below to apply browser proxy settings from the fields above. There is no form validation in place so issues will occur if required fields are left blank.</p>
+
+				<ul class="third conbtns">
+					<li><a href="#" data-proxy="a" data-proxy_host="">Set Proxy A</a></li>
+					<li><a href="#" data-proxy="b" data-proxy_host="">Set Proxy B</a></li>
+					<li><a href="#" data-proxy="noproxy" data-proxy_host="noproxy">Set no proxy</a></li>
+				</div>
 			</div>
-
-			<!-- uncomment this <div class="page"> and the <nav> above to enable multiple page navigation
-			<div class="page">
-				<h2 class="title full">Page 2</h2>
-
-			</div> -->
 		</div>
 		
 		<script src="lib/exkeleton-popup.js"></script>		
