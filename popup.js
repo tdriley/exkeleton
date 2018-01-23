@@ -3,7 +3,7 @@
 function onPopupOpen(){
 	//when the popup opens
 	console.log('Exkeleton popup opened');
-	bgpage.Exk.logIt('Exkeleton popup opened');
+	callBgFunc('logIt', {sText: 'Exkeleton popup opened'});
 
 };
 function onPopupClose(){

@@ -1,1 +1,1 @@
-//write your custom background js here
+//write your background js here
