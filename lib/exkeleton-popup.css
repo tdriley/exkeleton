@@ -1,36 +1,16 @@
-/* setup */
 body {
-	width: 640px;
+	width: 480px;
 	height: auto;
-	min-height: 480px;
+	min-height: 360px;
 	margin: 0;
 	padding-top: 1em;
-	overflow-x: hidden;
-	overflow-y: scroll;
 }
-
 .title {
     border-bottom: thin solid #eee;
     padding-bottom: 0.25em;
 }
-
-/* effects */
-.fade-in {
-    transition: opacity 0.3s;
-    opacity: 1;
-  }
-  
- .fade-out {
-    transition: opacity 0.3s;
-    opacity: 0;
- }
-
-/* structure */
-#page-container {
+#container {
 	position: relative;
-	float: left;
-}
-.page {
 	float: left;
 }
 .full {
@@ -51,16 +31,13 @@ body {
 .last {
 	margin-bottom: 0;
 }
-
 #msg-area {
-	/*padding: 0.5em 0 0.5em 0.5em;*/
+	transition: opacity 0.25s;
+	opacity: 0;
 	text-align: center;
 	border-radius: .25em;
 	background-color: #e6ffff;
 	color: #008EBD;
 	font-size: 1.25em;
-	/*background: linear-gradient(to bottom, #e6ffff, rgba(255,0,0,0));*/
-	position: absolute;
-	margin: -1em 0 0 0;
-	padding: 1em;
+	padding: 1em 0;
 }
