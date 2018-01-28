@@ -24,7 +24,7 @@
   ],
 
   "background" : {
-    "scripts" : ["lib/exkeleton-background.js", "background.js"],
+    "scripts" : ["lib/exk-background.js", "background.js"],
     "persistent": false
   },
 
