@@ -1,6 +1,5 @@
 {
   "manifest_version": 2,
-
   "name": "Exkeleton",
   "description": "Exkeleton",
   "version": "0.0.2",
@@ -13,7 +12,7 @@
 
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "Exkeleton"
+    "default_title": "ProxyPOC"
   },
 
   "content_scripts": [
