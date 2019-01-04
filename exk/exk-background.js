@@ -27,7 +27,7 @@ const ExkBackground = () => {
 			window.removeEventListener(sEvt, callback);
 		},
 
-		updateExtensionParts = (oMsg) => {
+		updateParts = (oMsg) => {
 			for (const key in msgPorts) {
 				msgPorts[key].postMessage(oMsg);
 			}
