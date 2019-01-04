@@ -1,10 +1,7 @@
+//write your popup js here
+console.log('Thanks for using Exkeleton! You have this stuff available to you in popup:', exk);
 
-function onPopupOpen(){
-	//when the popup opens
-	console.log('Exkeleton popup opened');
-	callBgFunc('logIt', null, 'Exkeleton popup opened');
-};
-
-function onPopupClose(){
-	//when the popup closes
-};
+exk.on('popupOpen', () => {
+	// on popup opened
+	exk.logIt('Popup opened')
+})

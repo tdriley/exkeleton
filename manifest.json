@@ -1,30 +1,29 @@
 {
   "manifest_version": 2,
   "name": "Exkeleton",
-  "description": "Exkeleton",
-  "version": "0.0.2",
+  "description": "Exkeleton Bare-bones Web Extension",
+  "version": "0.0.4",
 
   "icons": {
-    "16": "icons/16x16.png",
-    "48": "icons/48x48.png",
-    "128": "icons/128x128.png"
+    "16": "exk/img/16x16.png",
+    "48": "exk/img/48x48.png",
+    "128": "exk/img/128x128.png"
   },
 
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "ProxyPOC"
+    "default_title": "Exkeleton"
   },
 
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["exk/exk-content.js"]
     }
   ],
 
   "background" : {
-    "scripts" : ["lib/exk-background.js", "background.js"],
-    "persistent": false
+    "scripts": ["exk/exk-shared.js", "exk/exk-background.js", "background.js"]
   },
 
   "permissions": [
