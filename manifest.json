@@ -18,7 +18,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["exk/exk-content.js"]
+      "js": ["exk/exk-shared.js", "exk/exk-content.js", "content.js"]
     }
   ],
 

@@ -2,20 +2,12 @@ const ExkBackground = () => {
 	this.msgPorts = {};
 
 	let 
-		that = this,
-		_aCustomEvents = [];
+		that = this;
 
 	const 
 
 		// Construct shared funcs, so we can make them available later.
-		_oShared = ExkShared(),
-		_aCustomEventNames = ['popupClose'],
-
-		_createCustomEvents = (aEventNames) => {
-			aEventNames.forEach((sEvtName)=>{
-				_aCustomEvents[sEvtName] = new CustomEvent(sEvtName);
-			})
-		},
+		_oShared = ExkShared('background'),
 		
 		_on = (sEvt, callback) => {
 			if ( _aCustomEventNames.indexOf(sEvt)===-1 || typeof callback !== 'function' ) return false;
@@ -26,6 +18,11 @@ const ExkBackground = () => {
 		_off = (sEvt, callback) => {
 			window.removeEventListener(sEvt, callback);
 		},
+		
+		_triggerEvent = (sName) => {
+			_oShared.triggerEvent(sName);
+			updateParts({type:'event', name:sName});
+		},
 
 		updateParts = (oMsg) => {
 			for (const key in msgPorts) {
@@ -34,8 +31,6 @@ const ExkBackground = () => {
 		};
 
 		/* Code to run now */
-		_createCustomEvents(_aCustomEventNames);
-
 		// Set up browser.runtime communication with other parts of the extension.
 		browser.runtime.onConnect.addListener( (port) => {
 			const sPortName = (port.sender.tab) ? port.name + '-' + port.sender.tab.id : port.name;
@@ -43,14 +38,13 @@ const ExkBackground = () => {
 			port.onDisconnect.addListener( (disport) => {
 				const sDisPortName = (disport.sender.tab) ? disport.name + '-' + disport.sender.tab.id : disport.name;
 				delete that.msgPorts[sDisPortName];
-				if (disport.name==='popup') window.dispatchEvent( _aCustomEvents['popupClose'] ); 
+				if (disport.name==='popup') _triggerEvent('popupClosed');
 			});
 			port.onMessage.addListener( (msg, port) => {
-				switch(port.name) {
-					case 'content':
-						port.postMessage({bg_connected: true});
-					case 'popup':
-						port.postMessage({bg_connected: true});
+
+				switch(msg.type) {
+					case 'event':
+						_triggerEvent(msg.name);
 				}
 			});
 		});
