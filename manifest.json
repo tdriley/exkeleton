@@ -26,6 +26,11 @@
     "scripts": ["exk/exk-shared.js", "exk/exk-background.js", "background.js"]
   },
 
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+
   "permissions": [
     "activeTab",
     "tabs",

@@ -19,16 +19,25 @@ const ExkBackground = () => {
 			window.removeEventListener(sEvt, callback);
 		},
 		
-		_triggerEvent = (sName) => {
-			_oShared.triggerEvent(sName);
-			updateParts({type:'event', name:sName});
+		_triggerEvent = (sName, oData) => {
+			let oMsg = {type:'event', name:sName}
+			if (oData) oMsg.data = oData
+
+			_oShared.triggerEvent(sName, oData);
+			updateParts(oMsg);
 		},
 
 		updateParts = (oMsg) => {
 			for (const key in msgPorts) {
 				msgPorts[key].postMessage(oMsg);
 			}
-		};
+		},
+
+		_onTabActivated = (activeInfo) => {
+			browser.tabs.get(activeInfo.tabId, (tab) => {
+				_triggerEvent('tabActivated', tab);
+			})
+		}
 
 		/* Code to run now */
 		// Set up browser.runtime communication with other parts of the extension.
@@ -48,6 +57,9 @@ const ExkBackground = () => {
 				}
 			});
 		});
+
+		// Set up tabs listeners.
+		browser.tabs.onActivated.addListener(_onTabActivated);
 
 	// Set up return.
 	const oReturn = {

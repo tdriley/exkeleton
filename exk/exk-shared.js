@@ -33,16 +33,31 @@ const ExkShared = (sContext) => {
 			return getIdPart() + '-' + getIdPart() + '-' + getIdPart() + '-' + getIdPart();
 		},
 
-		_triggerEvent = (sName) => {
+		_triggerEvent = (sName, oData) => {
 			_evtListeners.forEach((listener)=>{
-				if (listener.name===sName) listener.handler.call();
+				if (listener.name===sName) listener.handler.call(this, oData);
 			});
+		},
+
+		_fadeIn = (el) => {
+			el.style.opacity = 1;
+		},
+
+		_fadeOut = (el) => {
+			el.style.opacity = 0;
+		},
+
+		_getAllTabs = (callback) => {
+			// TODO: user can provide a filter.
+			// TODO: Could async funcs return a promise?
+			browser.tabs.query({}, (tabs) => {
+				callback && callback(tabs)
+			})
 		},
 
 		_on = (name, handler) => {
 			const sNewId = _getId();
 			_evtListeners.push({id: sNewId, name:name, handler:handler, context:sContext});
-			console.log('_evtListeners', _evtListeners);
 			return sNewId;
 		},
 		
@@ -57,24 +72,32 @@ const ExkShared = (sContext) => {
     // Code to run now.
     window.browser = ( () => {
 		return window.browser || window.chrome;
-	})();
+	})()
 
-	// Set up communication with the background script.
-	if (sContext !== 'background') {
-		_bgport = browser.runtime.connect({name: sContext});
-		_bgport.onMessage.addListener( (msg, port) => {
-			if (msg.type==='event') _triggerEvent(msg.name);
-		});
-	};
-
-	return {
+	// Stuff that will be returned for all contexts.
+	let oReturn = {
 		logIt: _logIt,
 		storeItem: _storeItem,
 		loadItem: _loadItem,
 		getId: _getId,
-		bgport: _bgport,
 		triggerEvent: _triggerEvent,
+		getAllTabs: _getAllTabs,
 		on: _on,
 		off: _off
 	}
+
+	// Stuff we want returned in contexts other than the background script.
+	if (sContext !== 'background') {
+		// Set up communication with the background script.
+		_bgport = browser.runtime.connect({name: sContext});
+		_bgport.onMessage.addListener( (msg, port) => {
+			if (msg.type==='event') _triggerEvent(msg.name);
+		})
+
+		oReturn.fadeIn = _fadeIn
+		oReturn.fadeOut = _fadeOut
+		oReturn.bgport = _bgport
+	}
+
+	return oReturn
 };

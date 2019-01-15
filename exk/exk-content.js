@@ -2,45 +2,38 @@ const ExkContent = () => {
 
 	const 
 
-	// Construct shared funcs, so we can make them available later.
-	oShared = ExkShared('content');
+		// Construct shared funcs, so we can make them available later.
+		oShared = ExkShared('content'),
 
-	_showPageMsg = (sMsgText) => {
-		// const msgArea = document.getElementById('msg-area');
-		// msgArea.innerText = sMsgText; //TODO: this could parse links & use innerHTML.
-		// _fadeIn(msgArea);
-		// setTimeout(function(){
-		// 	_fadeOut(msgArea);
-		// }, _nMsgTimeout);
-	},
+		// Settings
+		_nMsgTimeout = 5000,
 
-	_on = (sEvt, callback) => {
-		if ( _aCustomEventNames.indexOf(sEvt)===-1 || typeof callback !== 'function' ) return false
-		window.addEventListener(sEvt, callback)
-		return true
-	},
-	
-	_off = (sEvt, callback) => {
-		window.removeEventListener(sEvt, callback)
-	},
-	_bgport = oShared.bgport;
+		// Methods
+		_setUpMsgContainer = () => {
+			_msgContainer = document.createElement('div')
+			_msgContainer.setAttribute('id', 'exk-tab-msg-container')
+			_msgContainer.style = 'transition:opacity 0.25s; opacity:0; position:fixed; top:-1000px; visibility:hidden; right:10px; background:#fff; padding:10px; border:thin solid #eee; box-shadow:0 0 10px #eee;'
+			document.body.appendChild(_msgContainer)
+		},
 
-	// Code to run now
-	document.addEventListener('DOMContentLoaded', function() {
-		// window.dispatchEvent( _aCustomEvents['popupOpen'] );
-	})
+		_showTabMsg = (sMsgText) => {
+			_msgContainer.innerText = sMsgText
+			_msgContainer.style['visibility'] = 'visible'
+			_msgContainer.style['top'] = '10px'
+			
+			oShared.fadeIn(_msgContainer);
+			setTimeout(function(){
+				oShared.fadeOut(_msgContainer);
+			}, _nMsgTimeout);
+		},
+		_bgport = oShared.bgport;
 
-	// Set up browser.runtime communication with background.
-	_bgport.onMessage.addListener(function(msg, port) {
-		
-	});
-	_bgport.postMessage({loaded: true});
+	// Code to run now.
+	_setUpMsgContainer();
 
 	// Set up return.
 	const oReturn = {
-		showPageMsg: 		_showPageMsg,
-		on: 				_on,
-		off: 				_off
+		showTabMsg: _showTabMsg
 	}
 
 	for (var key in oShared) {
@@ -50,4 +43,4 @@ const ExkContent = () => {
 	return oReturn;
 };
 
-window.exk = ExkContent();
+const exk = ExkContent();

@@ -9,20 +9,12 @@ const ExkPopup = () => {
 		_nMsgTimeout = 5000,
 
 		// Methods
-		_fadeIn = (el) => {
-			el.style.opacity = 1;
-		},
-
-		_fadeOut = (el) => {
-			el.style.opacity = 0;
-		},
-
 		_showPopupMsg = (sMsgText) => {
 			const msgArea = document.getElementById('msg-area');
 			msgArea.innerText = sMsgText; //TODO: this could parse links & use innerHTML.
-			_fadeIn(msgArea);
+			oShared.fadeIn(msgArea);
 			setTimeout(function(){
-				_fadeOut(msgArea);
+				oShared.fadeOut(msgArea);
 			}, _nMsgTimeout);
 		},
 		_bgport = oShared.bgport;
@@ -34,9 +26,7 @@ const ExkPopup = () => {
 
 	// Set up return.
 	const oReturn = {
-		fadeIn: 			_fadeIn,
-		fadeOut: 			_fadeOut,
-		showPopupMsg: 		_showPopupMsg
+		showPopupMsg: _showPopupMsg
 	}
 
 	for (var key in oShared) {
