@@ -44,3 +44,4 @@ const ExkContent = () => {
 };
 
 const exk = ExkContent();
+exk.showTabMsg('The Test message')

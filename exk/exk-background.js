@@ -9,21 +9,11 @@ const ExkBackground = () => {
 		// Construct shared funcs, so we can make them available later.
 		_oShared = ExkShared('background'),
 		
-		_on = (sEvt, callback) => {
-			if ( _aCustomEventNames.indexOf(sEvt)===-1 || typeof callback !== 'function' ) return false;
-			window.addEventListener(sEvt, callback);
-			return true;
-		},
-		
-		_off = (sEvt, callback) => {
-			window.removeEventListener(sEvt, callback);
-		},
-		
 		_triggerEvent = (sName, oData) => {
 			let oMsg = {type:'event', name:sName}
 			if (oData) oMsg.data = oData
 
-			_oShared.triggerEvent(sName, oData);
+			_oShared.runEventCallback(sName, oData);
 			updateParts(oMsg);
 		},
 
@@ -48,12 +38,13 @@ const ExkBackground = () => {
 				const sDisPortName = (disport.sender.tab) ? disport.name + '-' + disport.sender.tab.id : disport.name;
 				delete that.msgPorts[sDisPortName];
 				if (disport.name==='popup') _triggerEvent('popupClosed');
+				if (disport.name==='options') _triggerEvent('optionsClosed');
 			});
 			port.onMessage.addListener( (msg, port) => {
 
 				switch(msg.type) {
 					case 'event':
-						_triggerEvent(msg.name);
+						_triggerEvent(msg.name, msg.data);
 				}
 			});
 		});
@@ -62,10 +53,7 @@ const ExkBackground = () => {
 		browser.tabs.onActivated.addListener(_onTabActivated);
 
 	// Set up return.
-	const oReturn = {
-		on: 		_on,
-		off: 		_off
-	};
+	const oReturn = {};
 
 	for (var key in _oShared) {
 		oReturn[key] = _oShared[key];
